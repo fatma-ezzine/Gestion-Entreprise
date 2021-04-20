@@ -15,10 +15,10 @@ class CreateCongesTable extends Migration
     {
         Schema::create('conges', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->integer('type_conge_id')->unsigned()->nullable();
             $table->integer('salarie_id')->unsigned()->nullable();
-            $table->integer('nombre_jours');
+            $table->integer('nombre_jours')->nullable();
             $table->enum('nature',['Payé','Non Payé']);
             $table->timestamps();
         });

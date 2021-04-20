@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('ville', 'Api\VilleController@index');
+Route::post('ville', 'App\Http\Controllers\Api\VilleController@index');

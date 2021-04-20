@@ -27,8 +27,7 @@ class SalarieRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'cin'=>'required|min:8|max:8|unique:salaries,cin,{$this->salaries->id}',
-          // 'cin'=>'required|unique:salaries,cin,{$this->salaries->id}',
+            'cin'=>'required|min:8|max:8',
             'gouvernorat' => 'required|max:255',
             'ville' => 'required|max:255'
          ];

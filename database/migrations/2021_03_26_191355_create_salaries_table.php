@@ -17,8 +17,8 @@ class CreateSalariesTable extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nom');
-            $table->string('cin')->unique();
-            $table->string('diplome');
+            $table->string('cin')->unique()->nullable();
+            $table->string('diplome')->nullable();
             $table->integer('gouvernorat_id')->unsigned()->nullable();
             $table->integer('ville_id')->unsigned()->nullable();
             $table->timestamps();

@@ -33,7 +33,7 @@ class Gouvernorat extends Model
         return $this->hasMany('App\Models\Salarie');
     }
     public function villes() {
-        return $this->hasMany('App\Models\Ville');
+        return $this->hasMany('App\Models\Ville','gouvernorat_id');
     }
 
     /*

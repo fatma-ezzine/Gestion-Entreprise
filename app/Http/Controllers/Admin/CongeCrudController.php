@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CongeRequest;
+use App\Models\TypeConge;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -16,8 +17,8 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class CongeCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as congeStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { store as congeUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
@@ -28,6 +29,19 @@ class CongeCrudController extends CrudController
      *
      * @return void
      */
+
+
+     public function store() {
+        $result = $this->congeStore();
+      // do something after save
+      return $result;
+     }
+
+      public function update() {
+        $result = $this->congeUpdate();
+      // do something after save
+      return $result;
+     }
     public function setup()
     {
         CRUD::setModel(\App\Models\Conge::class);
@@ -37,9 +51,9 @@ class CongeCrudController extends CrudController
 
     }
 
+
     public function fetchTypeConge(){
         return $this->fetch(TypeConge::class);
-        $this->crud->enableExportButtons();
     }
 
     public function valider() {
@@ -49,8 +63,6 @@ class CongeCrudController extends CrudController
          ];
 
          Mail::to($this->email)->send(new TestMail($details));
-
-
     }
 
     public function refuser() {
@@ -96,7 +108,7 @@ class CongeCrudController extends CrudController
        CRUD::addColumn([
         'label'=>'Email',
         'name' => 'email',
-        'type' => 'text'
+        'type' => 'email'
         ]);
        CRUD::addColumn(['label'=> 'Nombre de jours',
        'name' => 'nombre_jours',
@@ -145,7 +157,7 @@ class CongeCrudController extends CrudController
                     CRUD::addField([
                         'label'=>'Email',
                         'name' => 'email',
-                        'type' => 'text',
+                        'type' => 'email',
                         'attribute'=> 'email'
                         ]);
                     CRUD::addField(['label'=> 'Nombre de jours',

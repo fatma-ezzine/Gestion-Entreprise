@@ -25,7 +25,7 @@ class Salarie extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['nom', 'gouvernorat_id', 'ville_id'];
+    protected $fillable = ['nom','cin', 'gouvernorat_id', 'ville_id'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SalarieRequest;
 use App\Models\Gouvernorat;
+use App\Models\Ville;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -43,6 +44,7 @@ class SalarieCrudController extends CrudController
     public function fetchGouvernorat(){
         return $this->fetch(Gouvernorat::class);
     }
+
     /**
      * Define what happens when the List operation is loaded.
      *
@@ -112,14 +114,14 @@ class SalarieCrudController extends CrudController
                 CRUD::addField([
                     'label'=>'CIN',
                     'name' => 'cin',
-                    'type' => 'text'
+                    'type' => 'number'
                     ]);
                     CRUD::addField([
                         'label'=>'Diplome',
                         'name' => 'diplome',
                         'type' => 'text'
                         ]);
-                      /* CRUD::field('gouvernorat')
+                     /*  CRUD::field('gouvernorat')
                             ->ajax(true)
                             ->minimum_input_length(0)
                             ->attribute('gouvernorat');
@@ -129,9 +131,9 @@ class SalarieCrudController extends CrudController
                             ->data_source(url("api/ville"))
                             ->method('POST')
                             ->dependencies(['gouvernorat'])
-                            ->include_all_form_fields(true);
+                            ->include_all_form_fields(true);*/
 
-                         /*  CRUD::addField([
+                       /*  CRUD::addField([
                             'label'=>'Gouvernorat',
                             'name' => 'gouvernorat',
                             'type' => 'select',
@@ -143,13 +145,16 @@ class SalarieCrudController extends CrudController
                                 'type' => 'select',
                                 'attribute'=>'nom'
                                 ]);*/
-                                $this->crud->addField([    // SELECT2
+                              /*  $this->crud->addField([    // SELECT2
                                     'label'         => 'Gouvernorat',
-                                    'type'          => 'select',
+                                    'type'          => 'relationship',
                                     'name'          => 'gouvernorat_id',
                                     'entity'        => 'gouvernorat',
+                                    'placeholder'   => 'Select an element',
                                     'attribute'     => 'nom',
                                 ]);
+
+
                                 $this->crud->addField([ // select2_from_ajax: 1-n relationship
                                     'label'                => "Ville", // Table column heading
                                     'type'                 => 'select2_from_ajax',
@@ -161,8 +166,20 @@ class SalarieCrudController extends CrudController
                                     'minimum_input_length' => 0, // minimum characters to type before querying results
                                     'dependencies'         => ['gouvernorat_id'], // when a dependency changes, this select2 is reset to null
                                     //'method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
-                                ]);
+                                ]);*/
 
+CRUD::field('gouvernorat')
+->ajax(true)
+->attribute('nom')
+->minimum_input_length(0);
+CRUD::field('ville')
+->ajax(true)
+->attribute('nom')
+->minimum_input_length(0)
+->data_source(url("api/ville"))
+->method('POST')
+->dependencies(['gouvernorat'])
+->include_all_form_fields(true);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
